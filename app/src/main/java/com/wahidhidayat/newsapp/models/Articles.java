@@ -14,8 +14,19 @@ public class Articles {
     @SerializedName("title")
     private String title;
 
-    @SerializedName("description")
-    private String description;
+    @SerializedName("content")
+    private String content;
+
+    @SerializedName("url")
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     @SerializedName("urlToImage")
     private String urlToImage;
@@ -47,12 +58,12 @@ public class Articles {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getUrlToImage() {

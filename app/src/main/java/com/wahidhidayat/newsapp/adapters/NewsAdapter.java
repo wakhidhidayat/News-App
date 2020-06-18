@@ -1,6 +1,7 @@
 package com.wahidhidayat.newsapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.wahidhidayat.newsapp.R;
+import com.wahidhidayat.newsapp.activities.DetailActivity;
 import com.wahidhidayat.newsapp.models.Articles;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -41,15 +43,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Articles article = articles.get(position);
+        final Articles article = articles.get(position);
         holder.tvTitle.setText(article.getTitle());
         holder.tvSource.setText(article.getSource().getName());
         holder.tvDate.setText("\u2022" + dateTime(article.getPublishedAt()));
 
         String imageUrl = article.getUrlToImage();
+
         Glide.with(context)
              .load(imageUrl)
              .into(holder.ivBanner);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("url", article.getUrl());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
