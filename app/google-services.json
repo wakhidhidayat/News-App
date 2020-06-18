@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "626223997298",
+    "firebase_url": "https://news-app-24a1c.firebaseio.com",
+    "project_id": "news-app-24a1c",
+    "storage_bucket": "news-app-24a1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626223997298:android:844c2cbd28ec47425d7deb",
+        "android_client_info": {
+          "package_name": "com.wahidhidayat.newsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626223997298-ld6oa731tccmllarohidjhuv9gr1dvje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wahidhidayat.newsapp",
+            "certificate_hash": "095c990a05fee09b49b23d21b6a21d970ac5400f"
+          }
+        },
+        {
+          "client_id": "626223997298-ig3eqbg3ehdnir034mdeguvkbvlmrbep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqDs6dOx690Pr6AKxSlh_90nhCEHi4_kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626223997298-ig3eqbg3ehdnir034mdeguvkbvlmrbep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
