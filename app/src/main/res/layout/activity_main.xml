@@ -42,6 +42,7 @@
             android:padding="10dp"
             android:hint="@string/search"
             android:textStyle="bold"
+            android:textCursorDrawable="@color/grey"
             android:textColor="@color/grey"
             android:textColorHint="@color/grey"/>
 

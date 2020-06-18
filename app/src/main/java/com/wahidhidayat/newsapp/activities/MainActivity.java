@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wahidhidayat.newsapp.BuildConfig;
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     NewsAdapter adapter;
+    EditText etSearch;
+    Button btnSearch;
     List<Articles> articles = new ArrayList<>();
 
     @Override
@@ -40,23 +46,56 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        etSearch = findViewById(R.id.et_search);
+        btnSearch = findViewById(R.id.btn_search);
         recyclerView = findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         final String country = getCountry();
-        fetch(country, BuildConfig.API_KEY);
+        fetch("", country, BuildConfig.API_KEY);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetch(country, BuildConfig.API_KEY);
+                fetch("", country, BuildConfig.API_KEY);
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etSearch.getText().toString().equals("")) {
+                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            fetch("", country, BuildConfig.API_KEY);
+                        }
+                    });
+                    fetch("", country, BuildConfig.API_KEY);
+                } else {
+                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            fetch(etSearch.getText().toString(), country, BuildConfig.API_KEY);
+                        }
+                    });
+                    fetch(etSearch.getText().toString(), country, BuildConfig.API_KEY);
+                }
             }
         });
     }
 
-    public void fetch(String country, String apiKey) {
+    public void fetch(String query, String country, String apiKey) {
         swipeRefreshLayout.setRefreshing(true);
-        Call<Headlines> call = APIClient.getInstance().getApi().getHeadlines(country, apiKey);
+        Call<Headlines> call;
+
+        if(etSearch.getText().toString().equals("")) {
+             call = APIClient.getInstance().getApi().getHeadlines(country, apiKey);
+        } else {
+             call = APIClient.getInstance().getApi().getNews(query, apiKey);
+        }
+
+
         call.enqueue(new Callback<Headlines>() {
             @Override
             public void onResponse(Call<Headlines> call, Response<Headlines> response) {
