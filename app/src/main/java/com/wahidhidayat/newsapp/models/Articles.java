@@ -2,8 +2,6 @@ package com.wahidhidayat.newsapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Articles {
     @SerializedName("source")
     private Source source;

@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context=".activities.DetailActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/black"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

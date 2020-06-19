@@ -1,124 +1,61 @@
 package com.wahidhidayat.newsapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 
-import com.wahidhidayat.newsapp.BuildConfig;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wahidhidayat.newsapp.R;
-import com.wahidhidayat.newsapp.adapters.NewsAdapter;
-import com.wahidhidayat.newsapp.models.Articles;
-import com.wahidhidayat.newsapp.models.Headlines;
-import com.wahidhidayat.newsapp.rests.APIClient;
-
-import org.ocpsoft.prettytime.PrettyTime;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.wahidhidayat.newsapp.adapters.ViewPagerAdapter;
+import com.wahidhidayat.newsapp.fragments.FavoriteFragment;
+import com.wahidhidayat.newsapp.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
-    NewsAdapter adapter;
-    EditText etSearch;
-    Button btnSearch;
-    List<Articles> articles = new ArrayList<>();
+    ViewPager viewPager;
+    TabLayout tabLayout;
+    ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
-        etSearch = findViewById(R.id.et_search);
-        btnSearch = findViewById(R.id.btn_search);
-        recyclerView = findViewById(R.id.rv_main);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
 
-        final String country = getCountry();
-        fetch("", country, BuildConfig.API_KEY);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new HomeFragment(), "News");
+        viewPagerAdapter.addFragment(new FavoriteFragment(), "Favorites");
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetch("", country, BuildConfig.API_KEY);
-            }
-        });
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(etSearch.getText().toString().equals("")) {
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            fetch("", country, BuildConfig.API_KEY);
-                        }
-                    });
-                    fetch("", country, BuildConfig.API_KEY);
-                } else {
-                    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                        @Override
-                        public void onRefresh() {
-                            fetch(etSearch.getText().toString(), country, BuildConfig.API_KEY);
-                        }
-                    });
-                    fetch(etSearch.getText().toString(), country, BuildConfig.API_KEY);
-                }
-            }
-        });
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    public void fetch(String query, String country, String apiKey) {
-        swipeRefreshLayout.setRefreshing(true);
-        Call<Headlines> call;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
-        if(etSearch.getText().toString().equals("")) {
-             call = APIClient.getInstance().getApi().getHeadlines(country, apiKey);
-        } else {
-             call = APIClient.getInstance().getApi().getNews(query, apiKey);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                return true;
         }
-
-
-        call.enqueue(new Callback<Headlines>() {
-            @Override
-            public void onResponse(Call<Headlines> call, Response<Headlines> response) {
-                if(response.isSuccessful()) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    articles.clear();
-                    articles = response.body().getArticles();
-                    adapter = new NewsAdapter(MainActivity.this, articles);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Headlines> call, Throwable t) {
-                swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(MainActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public String getCountry() {
-        Locale locale = Locale.getDefault();
-        String country = locale.getCountry();
-        return country.toLowerCase();
+        return false;
     }
 }

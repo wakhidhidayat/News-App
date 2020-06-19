@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">News App</string>
     <string name="news">News</string>
-    <string name="button">Button</string>
     <string name="search">Search</string>
-    <string name="dummy_text">sdajdlad asdlajsdasld askdajdlsa lasjdasldajs asjldalsdj sadljasjdak askdjaskdj sdjkaskjd askdjaskdja akjdaskjd ajdaskj</string>
-    <string name="title">TITLE</string>
     <string name="create_account">Create Account</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="sign_in">Sign In</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite">Favorite</string>
+    <string name="home">Home</string>
+    <string name="logout">Sign Out</string>
+    <string name="password">Password</string>
+    <string name="don_t_have_account_sign_up_here">Don\'t have account? Sign Up here</string>
+    <string name="already_have_account_sign_in_here">Already have account? Sign In here</string>
 </resources>

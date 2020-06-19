@@ -39,13 +39,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/et_email"
         android:layout_marginTop="30dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:textSize="20sp"
         android:textColor="@color/black"
         app:met_floatingLabel="normal"
         android:inputType="textPassword"/>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -56,5 +56,15 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@color/blue" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_login"
+        android:text="@string/don_t_have_account_sign_up_here"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:textColor="@color/blue"/>
 
 </RelativeLayout>
