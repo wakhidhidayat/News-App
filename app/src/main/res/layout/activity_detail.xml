@@ -41,7 +41,8 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/outline_favorite_black_24dp" />
+            android:backgroundTint="@color/white"
+            android:src="@drawable/outline_favorite_border_black_24dp" />
         
     </androidx.cardview.widget.CardView>
 
