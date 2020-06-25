@@ -2,6 +2,7 @@ package com.wahidhidayat.newsapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         tvToolbar.setText(R.string.news);
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new HomeFragment(), "News");
-        viewPagerAdapter.addFragment(new FavoriteFragment(), "Favorites");
+        viewPagerAdapter.addFragment(new HomeFragment(), getString(R.string.test));
+        viewPagerAdapter.addFragment(new FavoriteFragment(), getString(R.string.favorites));
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -59,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                return true;
+
+            case R.id.language:
+                Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intent);
                 return true;
         }
         return false;

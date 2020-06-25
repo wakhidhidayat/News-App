@@ -38,10 +38,6 @@ public class DetailActivity extends AppCompatActivity {
     DatabaseReference favReference;
     SwipeRefreshLayout swipeRefreshLayout;
 
-    Boolean act = true;
-    Boolean add = true;
-    Boolean remove = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +107,6 @@ public class DetailActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String urlDb = dataSnapshot.getValue(String.class);
-                            Log.i("urlDb", urlDb);
                             if(urlDb.equals(url)) {
                                 removeFavorite(id);
                             }

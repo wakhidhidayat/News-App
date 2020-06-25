@@ -27,18 +27,20 @@
                 android:id="@+id/iv_banner_fav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/image_banner" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/gradient"/>
+                android:background="@drawable/gradient"
+                android:contentDescription="@string/image_gradient" />
 
             <TextView
                 android:id="@+id/tv_title_fav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TITLE"
+                android:text="@string/title"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="10dp"
@@ -56,7 +58,7 @@
                     android:id="@+id/tv_source_fav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Source"
+                    android:text="@string/source"
                     android:textSize="10sp"
                     android:textColor="@color/white"/>
 
@@ -64,8 +66,8 @@
                     android:id="@+id/tv_date_fav"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="Date"
+                    android:gravity="end"
+                    android:text="@string/date"
                     android:textSize="10sp"
                     android:textColor="@color/white"/>
 

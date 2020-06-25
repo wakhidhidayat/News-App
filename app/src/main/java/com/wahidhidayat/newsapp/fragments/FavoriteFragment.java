@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.adapters.FavoriteAdapter;
@@ -75,10 +76,42 @@ public class FavoriteFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("err", databaseError.getDetails());
+                Log.i("error retrieve", databaseError.getDetails());
+            }
+        });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = etSearch.getText().toString().toLowerCase();
+                if(!text.equals("")) {
+                    searchNews(etSearch.getText().toString());
+                }
             }
         });
 
         return view;
+    }
+
+    private void searchNews(String text) {
+        Query query = favReference.orderByChild("title").startAt(text).endAt(text + "\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                favoriteList.clear();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Favorite favorite = snapshot.getValue(Favorite.class);
+                    favoriteList.add(favorite);
+                }
+                adapter = new FavoriteAdapter(getActivity(), favoriteList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("error search", databaseError.getDetails());
+            }
+        });
     }
 }
