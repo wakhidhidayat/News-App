@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_header"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/news"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:background="@color/white"-->
-<!--        android:padding="10dp"-->
-<!--        android:textAlignment="center" />-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

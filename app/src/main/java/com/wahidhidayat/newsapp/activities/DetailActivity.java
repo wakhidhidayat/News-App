@@ -2,37 +2,45 @@ package com.wahidhidayat.newsapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wahidhidayat.newsapp.R;
-
-import java.util.HashMap;
+import com.wahidhidayat.newsapp.models.Favorite;
 
 public class DetailActivity extends AppCompatActivity {
 
     WebView webView;
-    ProgressBar progressBar;
     Toolbar toolbar;
     FloatingActionButton btnFav;
 
     FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    DatabaseReference userReference;
+    DatabaseReference favReference;
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    Boolean act = true;
+    Boolean add = true;
+    Boolean remove = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +48,14 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         webView = findViewById(R.id.web_view);
-        progressBar = findViewById(R.id.pb_webview);
         toolbar = findViewById(R.id.toolbar);
         btnFav = findViewById(R.id.btn_fav);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_detail);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Favorites");
-        final String favId = reference.push().getKey();
+        userReference = FirebaseDatabase.getInstance().getReference("Users");
+        favReference = userReference.child(firebaseUser.getUid()).child("favorites");
 
-        progressBar.setVisibility(View.VISIBLE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -58,8 +65,23 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        swipeRefreshLayout.setRefreshing(true);
+
         Intent intent = getIntent();
+
+        final String id = intent.getStringExtra("id");
+        final String title = intent.getStringExtra("title");
+        final String image = intent.getStringExtra("image");
+        final String source = intent.getStringExtra("source");
+        final String date = intent.getStringExtra("date");
         final String url = intent.getStringExtra("url");
+
+        Log.i("favId" , id);
+        if(id.equals("id")) {
+            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
+        } else {
+            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
+        }
 
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -69,30 +91,64 @@ public class DetailActivity extends AppCompatActivity {
         webView.loadUrl(url);
 
         if(webView.isShown()) {
-            progressBar.setVisibility(View.INVISIBLE);
+            swipeRefreshLayout.setRefreshing(false);
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                webView.loadUrl(url);
+            }
+        });
 
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFavorite(favId, url, firebaseUser.getUid());
-                btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
+                if(id.equals("id")) {
+                    addFavorite(favReference.push().getKey(), url, title, source, date, image);
+                } else {
+                    favReference.child(id).child("url").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String urlDb = dataSnapshot.getValue(String.class);
+                            Log.i("urlDb", urlDb);
+                            if(urlDb.equals(url)) {
+                                removeFavorite(id);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
         });
     }
 
-    private void addFavorite(String id, String url, String userId) {
+    private void addFavorite(String id, String url, String title, String source, String date, String image) {
 
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", id);
-        hashMap.put("url", url);
-        hashMap.put("userId", userId);
+        Favorite favorite = new Favorite(id, url, title, source, date, image);
 
-        reference.child(id).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        favReference.child(id).setValue(favorite).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, "Success added to favorites", Toast.LENGTH_SHORT).show();
+                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
+                }
+            }
+        });
+    }
+
+    private void removeFavorite(String id) {
+        favReference.child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+                    Toast.makeText(DetailActivity.this, "Success removed from favorites", Toast.LENGTH_SHORT).show();
+                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
                 }
             }
         });

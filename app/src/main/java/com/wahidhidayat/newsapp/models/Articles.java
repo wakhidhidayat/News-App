@@ -3,6 +3,7 @@ package com.wahidhidayat.newsapp.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Articles {
+
     @SerializedName("source")
     private Source source;
 
@@ -17,14 +18,6 @@ public class Articles {
 
     @SerializedName("url")
     private String url;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     @SerializedName("urlToImage")
     private String urlToImage;
@@ -78,5 +71,13 @@ public class Articles {
 
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
