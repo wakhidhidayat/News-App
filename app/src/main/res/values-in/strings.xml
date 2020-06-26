@@ -21,4 +21,11 @@
     <string name="image_gradient">Gambar Gradient</string>
     <string name="source">Sumber</string>
     <string name="favorites">Favorit</string>
+    <string name="success_add_favorites">Berhasil menambahkan ke favorit</string>
+    <string name="success_remove_favorites">Berhasil menghapus dari favorit</string>
+    <string name="all_fields_are_required">Semua field harus terisi!</string>
+    <string name="authentication_failed">Kesalahan autentikasi</string>
+    <string name="password_at_least_8">Password harus minimal 8 karakter</string>
+    <string name="email_already_taken">Email sudah dipakai akun lain</string>
+    <string name="news_detail">Detail Berita</string>
 </resources>

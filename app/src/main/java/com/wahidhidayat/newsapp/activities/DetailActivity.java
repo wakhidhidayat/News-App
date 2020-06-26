@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.models.Favorite;
 
+import java.util.Objects;
+
 public class DetailActivity extends AppCompatActivity {
 
     WebView webView;
@@ -53,7 +55,8 @@ public class DetailActivity extends AppCompatActivity {
         favReference = userReference.child(firebaseUser.getUid()).child("favorites");
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.news_detail);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         final String date = intent.getStringExtra("date");
         final String url = intent.getStringExtra("url");
 
+        assert id != null;
         Log.i("favId" , id);
         if(id.equals("id")) {
             btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
@@ -107,6 +111,7 @@ public class DetailActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String urlDb = dataSnapshot.getValue(String.class);
+                            assert urlDb != null;
                             if(urlDb.equals(url)) {
                                 removeFavorite(id);
                             }
@@ -130,7 +135,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                    Toast.makeText(DetailActivity.this, "Success added to favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, R.string.success_add_favorites, Toast.LENGTH_SHORT).show();
                     btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
                 }
             }
@@ -142,7 +147,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                    Toast.makeText(DetailActivity.this, "Success removed from favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, R.string.success_remove_favorites, Toast.LENGTH_SHORT).show();
                     btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
                 }
             }

@@ -61,9 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString();
 
                 if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.all_fields_are_required, Toast.LENGTH_SHORT).show();
                 } else if(password.length() < 8) {
-                    Toast.makeText(RegisterActivity.this, "Password must be at least 8 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.password_at_least_8, Toast.LENGTH_SHORT).show();
                 } else {
                     register(name, email, password);
                 }
@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            Toast.makeText(RegisterActivity.this, "Email already taken!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, R.string.email_already_taken, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -33,12 +33,12 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
-    NewsAdapter adapter;
-    EditText etSearch;
-    Button btnSearch;
-    List<Articles> articles = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private NewsAdapter adapter;
+    private EditText etSearch;
+    private Button btnSearch;
+    private List<Articles> articles = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public void fetch(String query, String country, String apiKey) {
+    private void fetch(String query, String country, String apiKey) {
         swipeRefreshLayout.setRefreshing(true);
         Call<Headlines> call;
 
@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public String getCountry() {
+    private String getCountry() {
         Locale locale = Locale.getDefault();
         String country = locale.getCountry();
         return country.toLowerCase();

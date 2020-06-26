@@ -36,24 +36,20 @@ import java.util.List;
  */
 public class FavoriteFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
-    FavoriteAdapter adapter;
-    EditText etSearch;
-    Button btnSearch;
-    List<Favorite> favoriteList;
+    private RecyclerView recyclerView;
+    private FavoriteAdapter adapter;
+    private EditText etSearch;
+    private List<Favorite> favoriteList;
 
-    DatabaseReference favReference;
-    FirebaseUser firebaseUser;
+    private DatabaseReference favReference;
+    private FirebaseUser firebaseUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_fav);
         recyclerView = view.findViewById(R.id.rv_fav);
         etSearch = view.findViewById(R.id.et_search_fav);
-        btnSearch = view.findViewById(R.id.btn_search_fav);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
@@ -111,7 +107,6 @@ public class FavoriteFragment extends Fragment {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Favorite favorite = snapshot.getValue(Favorite.class);
-                    Log.i("fav title", favorite.getTitle());
                     favoriteList.add(favorite);
                 }
                 adapter = new FavoriteAdapter(getActivity(), favoriteList);
