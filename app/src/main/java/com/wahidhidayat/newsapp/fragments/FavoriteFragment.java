@@ -1,6 +1,8 @@
 package com.wahidhidayat.newsapp.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,21 +82,28 @@ public class FavoriteFragment extends Fragment {
             }
         });
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String text = etSearch.getText().toString().toLowerCase();
-                if(!text.equals("")) {
-                    searchNews(etSearch.getText().toString());
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchNews(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
         return view;
     }
 
-    private void searchNews(String text) {
-        Query query = favReference.orderByChild("title").startAt(text).endAt(text + "\uf8ff");
+    private void searchNews(String s) {
+        Query query = favReference.orderByChild("title").startAt(s).endAt(s + "\uf8ff"); // The character \uf8ff used in the query is a very high code point in the Unicode range (it is a Private Usage Area [PUA] code)
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -102,6 +111,7 @@ public class FavoriteFragment extends Fragment {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Favorite favorite = snapshot.getValue(Favorite.class);
+                    Log.i("fav title", favorite.getTitle());
                     favoriteList.add(favorite);
                 }
                 adapter = new FavoriteAdapter(getActivity(), favoriteList);
