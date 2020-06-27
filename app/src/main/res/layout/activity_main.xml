@@ -17,18 +17,8 @@
             android:layout_height="60dp"
             android:background="@color/white"
             app:titleTextColor="@color/black"
-            android:gravity="center"
-            app:subtitleTextColor="@color/black">
-
-            <TextView
-                android:id="@+id/tv_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </androidx.appcompat.widget.Toolbar>
+            android:gravity="start"
+            app:subtitleTextColor="@color/black" />
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"

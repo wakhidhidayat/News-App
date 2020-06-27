@@ -12,4 +12,11 @@
         android:id="@+id/language"
         android:title="@string/language"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.SearchView" />
 </menu>
