@@ -7,8 +7,6 @@
     <string name="name">Nama</string>
     <string name="email">Email</string>
     <string name="sign_in">Masuk</string>
-    <string name="favorite">Favorit</string>
-    <string name="home">Beranda</string>
     <string name="logout">Keluar</string>
     <string name="password">Password</string>
     <string name="don_t_have_account_sign_up_here">Belum punya akun? Daftar disini</string>

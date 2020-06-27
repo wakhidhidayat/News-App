@@ -92,9 +92,9 @@ public class HomeFragment extends Fragment {
         Call<Headlines> call;
 
         if(etSearch.getText().toString().equals("")) {
-            call = APIClient.getInstance().getApi().getHeadlines(country, apiKey);
+            call = APIClient.getInstance().getApi().getHeadlines(country, apiKey, 100);
         } else {
-            call = APIClient.getInstance().getApi().getNews(query, apiKey);
+            call = APIClient.getInstance().getApi().getNews(query, apiKey, 100);
         }
 
 
@@ -104,6 +104,7 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()) {
                     swipeRefreshLayout.setRefreshing(false);
                     articles.clear();
+                    assert response.body() != null;
                     articles = response.body().getArticles();
                     adapter = new NewsAdapter(getActivity(), articles);
                     recyclerView.setAdapter(adapter);

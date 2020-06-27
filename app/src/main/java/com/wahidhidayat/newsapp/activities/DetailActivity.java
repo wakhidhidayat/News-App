@@ -84,15 +84,10 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         webView.getSettings().setDomStorageEnabled(true);
-        webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);
-
-        if(webView.isShown()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -100,6 +95,10 @@ public class DetailActivity extends AppCompatActivity {
                 webView.loadUrl(url);
             }
         });
+
+        if(webView.isShown()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override

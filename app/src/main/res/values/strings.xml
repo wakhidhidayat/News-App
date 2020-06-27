@@ -6,8 +6,6 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="sign_in">Sign In</string>
-    <string name="favorite">Favorite</string>
-    <string name="home">Home</string>
     <string name="logout">Sign Out</string>
     <string name="password">Password</string>
     <string name="don_t_have_account_sign_up_here">Don\'t have account? Sign Up here</string>

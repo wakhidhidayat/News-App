@@ -2,7 +2,6 @@ package com.wahidhidayat.newsapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
              .into(holder.ivBanner);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        favReference = FirebaseDatabase.getInstance().getReference(firebaseUser.getUid()).child("favorites");
+        favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,10 +75,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                         String id = "id";
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Favorite favorite = snapshot.getValue(Favorite.class);
+                            assert favorite != null;
                             if(favorite.getUrl().equals(article.getUrl())) {
                                 id = favorite.getId();
                             }
-                            Log.i("adapter id", favorite.getId());
                         }
 
                         Intent intent = new Intent(context, DetailActivity.class);
