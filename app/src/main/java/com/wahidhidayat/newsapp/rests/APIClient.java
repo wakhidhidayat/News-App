@@ -17,7 +17,7 @@ public class APIClient {
     }
 
     public static synchronized APIClient getInstance() {
-        if(apiClient == null) {
+        if (apiClient == null) {
             apiClient = new APIClient();
         }
         return apiClient;

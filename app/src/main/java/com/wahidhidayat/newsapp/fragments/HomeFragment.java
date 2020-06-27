@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query.length() > 2) {
+                if (query.length() > 2) {
                     fetch(query, country, BuildConfig.API_KEY);
                 }
                 return true;
@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(true);
         Call<Headlines> call;
 
-        if(query.length() > 0) {
+        if (query.length() > 0) {
             call = APIClient.getInstance().getApi().getNews(query, apiKey, 100);
         } else {
             call = APIClient.getInstance().getApi().getHeadlines(country, apiKey, 100);
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<Headlines>() {
             @Override
             public void onResponse(@NonNull Call<Headlines> call, Response<Headlines> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     swipeRefreshLayout.setRefreshing(false);
                     articles.clear();
                     assert response.body() != null;

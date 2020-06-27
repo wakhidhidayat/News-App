@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">News App</string>
-    <string name="news">News App</string>
+    <string name="news">Berita</string>
     <string name="search">Cari</string>
     <string name="create_account">Buat Akun</string>
     <string name="name">Nama</string>
@@ -11,7 +11,6 @@
     <string name="password">Password</string>
     <string name="don_t_have_account_sign_up_here">Belum punya akun? Daftar disini</string>
     <string name="already_have_account_sign_in_here">Sudah punya akun? Masuk disini</string>
-    <string name="test">Berita</string>
     <string name="language">Ganti bahasa</string>
     <string name="title">Judul</string>
     <string name="date">Tanggal</string>
@@ -27,4 +26,5 @@
     <string name="email_already_taken">Email sudah dipakai akun lain</string>
     <string name="news_detail">Detail Berita</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
+    <string name="search_latest_news">Cari Berita...</string>
 </resources>

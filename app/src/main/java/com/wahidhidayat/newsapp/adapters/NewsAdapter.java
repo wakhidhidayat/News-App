@@ -69,8 +69,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         String imageUrl = article.getUrlToImage();
         holder.progressBar.setVisibility(View.VISIBLE);
         Glide.with(context)
-             .load(imageUrl)
-             .listener(new RequestListener<Drawable>() {
+                .load(imageUrl)
+                .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         return false;
@@ -82,7 +82,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                         return false;
                     }
                 })
-             .into(holder.ivBanner);
+                .into(holder.ivBanner);
 
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -95,10 +95,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String id = "id";
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Favorite favorite = snapshot.getValue(Favorite.class);
                             assert favorite != null;
-                            if(favorite.getUrl().equals(article.getUrl())) {
+                            if (favorite.getUrl().equals(article.getUrl())) {
                                 id = favorite.getId();
                             }
                         }

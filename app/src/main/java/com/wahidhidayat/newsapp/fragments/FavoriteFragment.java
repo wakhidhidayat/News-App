@@ -67,7 +67,7 @@ public class FavoriteFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 favoriteList.clear();
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Favorite favorite = snapshot.getValue(Favorite.class);
                     favoriteList.add(favorite);
                 }
@@ -106,7 +106,7 @@ public class FavoriteFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query.length() > 2) {
+                if (query.length() > 2) {
                     searchNews(query);
                 }
                 return true;
@@ -147,7 +147,7 @@ public class FavoriteFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 favoriteList.clear();
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Favorite favorite = snapshot.getValue(Favorite.class);
                     favoriteList.add(favorite);
                 }

@@ -77,8 +77,8 @@ public class DetailActivity extends AppCompatActivity {
         final String description = intent.getStringExtra("description");
 
         assert id != null;
-        Log.i("favId" , id);
-        if(id.equals("id")) {
+        Log.i("favId", id);
+        if (id.equals("id")) {
             btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
         } else {
             btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
@@ -97,14 +97,14 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        if(webView.isShown()) {
+        if (webView.isShown()) {
             swipeRefreshLayout.setRefreshing(false);
         }
 
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(id.equals("id")) {
+                if (id.equals("id")) {
                     addFavorite(favReference.push().getKey(), url, title, source, date, image, description);
                 } else {
                     favReference.child(id).child("url").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,7 +112,7 @@ public class DetailActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String urlDb = dataSnapshot.getValue(String.class);
                             assert urlDb != null;
-                            if(urlDb.equals(url)) {
+                            if (urlDb.equals(url)) {
                                 removeFavorite(id);
                             }
                         }
@@ -134,7 +134,7 @@ public class DetailActivity extends AppCompatActivity {
         favReference.child(id).setValue(favorite).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, R.string.success_add_favorites, Toast.LENGTH_SHORT).show();
                     btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
                 }
@@ -146,7 +146,7 @@ public class DetailActivity extends AppCompatActivity {
         favReference.child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, R.string.success_remove_favorites, Toast.LENGTH_SHORT).show();
                     btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
                 }

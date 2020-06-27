@@ -60,9 +60,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
-                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     Toast.makeText(RegisterActivity.this, R.string.all_fields_are_required, Toast.LENGTH_SHORT).show();
-                } else if(password.length() < 8) {
+                } else if (password.length() < 8) {
                     Toast.makeText(RegisterActivity.this, R.string.password_at_least_8, Toast.LENGTH_SHORT).show();
                 } else {
                     register(name, email, password);
@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             // membuat akun baru
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             String userId = firebaseUser.getUid();
@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()) {
+                                    if (task.isSuccessful()) {
                                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
