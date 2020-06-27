@@ -5,4 +5,9 @@
     <color name="white">#f7f6f9</color>
     <color name="black">#191819</color>
     <color name="blue">#B9216EF3</color>
+
+
+    <color name="colorBackground">#f9f9fa</color>
+    <color name="colorTextSubtitle">#4e4e4e</color>
+    <color name="colorTextTitle">#262626</color>
 </resources>

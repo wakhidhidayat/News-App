@@ -2,17 +2,24 @@ package com.wahidhidayat.newsapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +38,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.security.auth.callback.Callback;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
@@ -53,15 +62,30 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Articles article = articles.get(position);
         holder.tvTitle.setText(article.getTitle());
         holder.tvSource.setText(article.getSource().getName());
         holder.tvDate.setText("\u2022" + dateTime(article.getPublishedAt()));
+        holder.tvDesc.setText(article.getDescription());
         String imageUrl = article.getUrlToImage();
+        holder.progressBar.setVisibility(View.VISIBLE);
         Glide.with(context)
              .load(imageUrl)
+             .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        holder.progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
              .into(holder.ivBanner);
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
@@ -87,6 +111,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                         intent.putExtra("date", article.getPublishedAt());
                         intent.putExtra("source", article.getSource().getName());
                         intent.putExtra("url", article.getUrl());
+                        intent.putExtra("description", article.getDescription());
                         intent.putExtra("id", id);
                         context.startActivity(intent);
                     }
@@ -106,9 +131,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvSource, tvDate;
+        TextView tvTitle, tvSource, tvDate, tvDesc;
         ImageView ivBanner;
         CardView cardView;
+        ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,6 +143,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             tvDate = itemView.findViewById(R.id.tv_date);
             ivBanner = itemView.findViewById(R.id.iv_banner);
             cardView = itemView.findViewById(R.id.card_view);
+            tvDesc = itemView.findViewById(R.id.tv_desc);
+            progressBar = itemView.findViewById(R.id.pb_main);
         }
     }
 

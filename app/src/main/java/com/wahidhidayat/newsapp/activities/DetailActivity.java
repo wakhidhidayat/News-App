@@ -74,6 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         final String source = intent.getStringExtra("source");
         final String date = intent.getStringExtra("date");
         final String url = intent.getStringExtra("url");
+        final String description = intent.getStringExtra("description");
 
         assert id != null;
         Log.i("favId" , id);
@@ -104,7 +105,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(id.equals("id")) {
-                    addFavorite(favReference.push().getKey(), url, title, source, date, image);
+                    addFavorite(favReference.push().getKey(), url, title, source, date, image, description);
                 } else {
                     favReference.child(id).child("url").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -126,9 +127,9 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void addFavorite(String id, String url, String title, String source, String date, String image) {
+    private void addFavorite(String id, String url, String title, String source, String date, String image, String description) {
 
-        Favorite favorite = new Favorite(id, url, title, source, date, image);
+        Favorite favorite = new Favorite(id, url, title, source, date, image, description);
 
         favReference.child(id).setValue(favorite).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

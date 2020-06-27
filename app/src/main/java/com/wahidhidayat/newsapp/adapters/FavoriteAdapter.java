@@ -2,17 +2,24 @@ package com.wahidhidayat.newsapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.activities.DetailActivity;
 import com.wahidhidayat.newsapp.models.Favorite;
@@ -42,16 +49,29 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Favorite favorite = favorites.get(position);
         holder.tvTitle.setText(favorite.getTitle());
         holder.tvSource.setText(favorite.getSource());
         holder.tvDate.setText("\u2022" + dateTime(favorite.getDate()));
-
+        holder.tvDescription.setText(favorite.getDescription());
+        holder.progressBar.setVisibility(View.VISIBLE);
         String imageUrl = favorite.getImage();
 
         Glide.with(context)
                 .load(imageUrl)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        holder.progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
                 .into(holder.ivBanner);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +84,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 intent.putExtra("source", favorite.getSource());
                 intent.putExtra("url", favorite.getUrl());
                 intent.putExtra("id", favorite.getId());
+                intent.putExtra("description", favorite.getDescription());
                 context.startActivity(intent);
             }
         });
@@ -75,9 +96,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvSource, tvDate;
+        TextView tvTitle, tvSource, tvDate, tvDescription;
         ImageView ivBanner;
         CardView cardView;
+        ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +108,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             tvDate = itemView.findViewById(R.id.tv_date_fav);
             ivBanner = itemView.findViewById(R.id.iv_banner_fav);
             cardView = itemView.findViewById(R.id.card_view_fav);
+            tvDescription = itemView.findViewById(R.id.tv_desc_fav);
+            progressBar = itemView.findViewById(R.id.pb_fav);
         }
     }
 

@@ -1,15 +1,16 @@
 package com.wahidhidayat.newsapp.models;
 
 public class Favorite {
-    private String id, url, title, source, date, image;
+    private String id, url, title, source, date, image, description;
 
-    public Favorite(String id, String url, String title, String source, String date, String image) {
+    public Favorite(String id, String url, String title, String source, String date, String image, String description) {
         this.id = id;
         this.url = url;
         this.title = title;
         this.source = source;
         this.date = date;
         this.image = image;
+        this.description = description;
     }
 
     public Favorite() {
@@ -62,5 +63,13 @@ public class Favorite {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

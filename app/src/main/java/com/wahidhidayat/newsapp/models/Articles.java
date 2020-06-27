@@ -7,14 +7,8 @@ public class Articles {
     @SerializedName("source")
     private Source source;
 
-    @SerializedName("author")
-    private String author;
-
     @SerializedName("title")
     private String title;
-
-    @SerializedName("content")
-    private String content;
 
     @SerializedName("url")
     private String url;
@@ -25,6 +19,9 @@ public class Articles {
     @SerializedName("publishedAt")
     private String publishedAt;
 
+    @SerializedName("description")
+    private String description;
+
     public Source getSource() {
         return source;
     }
@@ -33,28 +30,12 @@ public class Articles {
         this.source = source;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getUrlToImage() {
@@ -79,5 +60,13 @@ public class Articles {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
