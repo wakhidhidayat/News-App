@@ -11,4 +11,10 @@
         android:enabled="true"
         android:icon="@drawable/ic_favorite_24dp"
         android:title="@string/favorites"/>
+
+    <item
+        android:id="@+id/categories_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_filter_none_black_24dp"
+        android:title="@string/categories" />
 </menu>

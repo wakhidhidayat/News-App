@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment {
         if (query.length() > 0) {
             call = APIClient.getInstance().getApi().getNews(query, apiKey, 100);
         } else {
-            call = APIClient.getInstance().getApi().getHeadlines(country, apiKey, 100);
+            call = APIClient.getInstance().getApi().getHeadlines(country, apiKey, 100, "");
         }
 
         call.enqueue(new Callback<Headlines>() {
