@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    Toolbar toolbar;
     BottomNavigationView bottomNav;
 
     @Override
@@ -27,10 +26,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
 
-        toolbar = findViewById(R.id.toolbar);
+
         bottomNav = findViewById(R.id.bottom_navigation);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
 
         loadFragment(new HomeFragment());
         bottomNav.setOnNavigationItemSelectedListener(this);

@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.wahidhidayat.newsapp.BuildConfig;
@@ -44,6 +46,7 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment {
 
+    private Toolbar toolbar;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private NewsAdapter adapter;
@@ -57,6 +60,10 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         recyclerView = view.findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle("");
 
         final String country = getCountry();
         fetch("", country, BuildConfig.API_KEY);
@@ -138,7 +145,7 @@ public class HomeFragment extends Fragment {
         if (query.length() > 0) {
             call = APIClient.getInstance().getApi().getNews(query, apiKey, 100);
         } else {
-            call = APIClient.getInstance().getApi().getHeadlines(country, apiKey, 100, "");
+            call = APIClient.getInstance().getApi().getHeadlines(country, apiKey, 100, "general");
         }
 
         call.enqueue(new Callback<Headlines>() {
