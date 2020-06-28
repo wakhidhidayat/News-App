@@ -8,4 +8,9 @@
         <item name="colorAccent">#191819</item>
     </style>
 
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">#4e4e4e</item>
+    </style>
+
 </resources>

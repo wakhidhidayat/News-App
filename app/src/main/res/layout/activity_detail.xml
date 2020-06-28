@@ -12,10 +12,22 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/black"
-        app:titleTextColor="@color/white"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:subtitleTextColor="@color/white"/>
+        android:background="@color/white"
+        app:titleTextColor="@color/colorTextTitle"
+        android:theme="@style/ToolbarTheme"
+        app:subtitleTextColor="@color/colorTextTitle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:text="@string/news_detail"
+            android:textSize="23sp"
+            android:textColor="@color/colorTextSubtitle"
+            android:layout_gravity="center_vertical" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

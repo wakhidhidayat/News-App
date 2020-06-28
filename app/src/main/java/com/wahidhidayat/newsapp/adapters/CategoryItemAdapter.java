@@ -2,7 +2,6 @@ package com.wahidhidayat.newsapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.activities.CategoryActivity;
-import com.wahidhidayat.newsapp.activities.MainActivity;
 import com.wahidhidayat.newsapp.models.Category;
 
 import java.util.ArrayList;
@@ -43,22 +41,22 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         String category = "category";
         String tvValue = holder.tvCategory.getText().toString();
 
-        if(tvValue.equals("Business")) {
+        if (tvValue.equals("Business")) {
             category = "business";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attach_money_black_24dp, 0, 0, 0);
-        } else if(tvValue.equals("Entertainment")) {
+        } else if (tvValue.equals("Entertainment")) {
             category = "entertainment";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_live_tv_black_24dp, 0, 0, 0);
-        } else if(tvValue.equals("Health")) {
+        } else if (tvValue.equals("Health")) {
             category = "health";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_local_hospital_black_24dp, 0, 0, 0);
-        } else if(tvValue.equals("Science")) {
+        } else if (tvValue.equals("Science")) {
             category = "science";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_functions_black_24dp, 0, 0, 0);
-        } else if(tvValue.equals("Sports")) {
+        } else if (tvValue.equals("Sports")) {
             category = "sports";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_fitness_center_black_24dp, 0, 0, 0);
-        } else if(tvValue.equals("Technology")) {
+        } else if (tvValue.equals("Technology")) {
             category = "technology";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_desktop_mac_black_24dp, 0, 0, 0);
         }

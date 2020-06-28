@@ -1,30 +1,29 @@
 package com.wahidhidayat.newsapp.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.wahidhidayat.newsapp.BuildConfig;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.adapters.CategoryAdapter;
-import com.wahidhidayat.newsapp.adapters.FavoriteAdapter;
-import com.wahidhidayat.newsapp.adapters.NewsAdapter;
 import com.wahidhidayat.newsapp.models.Articles;
-import com.wahidhidayat.newsapp.models.Favorite;
 import com.wahidhidayat.newsapp.models.Headlines;
 import com.wahidhidayat.newsapp.rests.APIClient;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +31,8 @@ import retrofit2.Response;
 
 public class CategoryActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    private TextView tvToolbar;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
     private List<Articles> articles = new ArrayList<>();
@@ -43,6 +44,8 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         recyclerView = findViewById(R.id.rv_category_activity);
+        toolbar = findViewById(R.id.toolbar_category);
+        tvToolbar = findViewById(R.id.tv_toolbar_category);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_category);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -50,6 +53,39 @@ public class CategoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String categoryIntent = intent.getStringExtra("category");
         final String country = getCountry();
+
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        assert categoryIntent != null;
+        switch (categoryIntent) {
+            case "business":
+                tvToolbar.setText(R.string.business);
+                break;
+            case "entertainment":
+                tvToolbar.setText(R.string.entertainment);
+                break;
+            case "health":
+                tvToolbar.setText(R.string.health);
+                break;
+            case "science":
+                tvToolbar.setText(R.string.science);
+                break;
+            case "sports":
+                tvToolbar.setText(R.string.sports);
+                break;
+            case "technology":
+                tvToolbar.setText(R.string.technology);
+                break;
+        }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
 
         fetch(country, categoryIntent, BuildConfig.API_KEY);
 

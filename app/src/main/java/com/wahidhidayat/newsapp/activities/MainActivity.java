@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         toolbar = findViewById(R.id.toolbar);
         bottomNav = findViewById(R.id.bottom_navigation);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.news);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
         loadFragment(new HomeFragment());
         bottomNav.setOnNavigationItemSelectedListener(this);

@@ -55,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
         favReference = userReference.child(firebaseUser.getUid()).child("favorites");
 
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.news_detail);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
