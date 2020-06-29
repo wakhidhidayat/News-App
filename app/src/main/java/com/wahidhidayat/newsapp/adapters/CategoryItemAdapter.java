@@ -59,6 +59,13 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         } else if (tvValue.equals("Technology")) {
             category = "technology";
             holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_desktop_mac_black_24dp, 0, 0, 0);
+        } else if(tvValue.equals("Trending in U.S.")) {
+            category = "trending us";
+            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.us_map, 0, 0, 0);
+        } else if(tvValue.equals("Trending in Indonesia")) {
+            category = "trending id";
+            holder.tvCategory.setCompoundDrawablePadding(13);
+            holder.tvCategory.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indonesia_map, 0, 0, 0);
         }
 
         final String finalCategory = category;

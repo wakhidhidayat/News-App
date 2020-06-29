@@ -52,5 +52,7 @@ public class CategoryFragment extends Fragment {
         categoryList.add(new Category(getString(R.string.science)));
         categoryList.add(new Category(getString(R.string.sports)));
         categoryList.add(new Category(getString(R.string.technology)));
+        categoryList.add(new Category(getString(R.string.trending_us)));
+        categoryList.add(new Category(getString(R.string.trending_id)));
     }
 }

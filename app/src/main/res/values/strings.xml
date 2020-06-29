@@ -10,7 +10,7 @@
     <string name="password">Password</string>
     <string name="don_t_have_account_sign_up_here">Don\'t have account? Sign Up here</string>
     <string name="already_have_account_sign_in_here">Already have account? Sign In here</string>
-    <string name="language">Change language setting</string>
+    <string name="language">Change region</string>
     <string name="title">TITLE</string>
     <string name="date">Date</string>
     <string name="image_banner">Image Banner</string>
@@ -37,4 +37,7 @@
     <string name="science">Science</string>
     <string name="sports">Sports</string>
     <string name="technology">Technology</string>
+    <string name="trending">Trending</string>
+    <string name="trending_us">Trending in U.S.</string>
+    <string name="trending_id">Trending in Indonesia</string>
 </resources>

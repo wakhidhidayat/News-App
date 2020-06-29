@@ -78,6 +78,12 @@ public class CategoryActivity extends AppCompatActivity {
             case "technology":
                 tvToolbar.setText(R.string.technology);
                 break;
+            case "trending us":
+                tvToolbar.setText(R.string.trending_us);
+                break;
+            case "trending id":
+                tvToolbar.setText(R.string.trending_id);
+                break;
         }
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -87,12 +93,25 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        fetch(country, categoryIntent, BuildConfig.API_KEY);
+        if(categoryIntent.equals("trending us")) {
+            fetch("us", "general", BuildConfig.API_KEY);
+        } else if (categoryIntent.equals("trending id")) {
+            fetch("id", "general", BuildConfig.API_KEY);
+        } else {
+            fetch(country, categoryIntent, BuildConfig.API_KEY);
+        }
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fetch(country, categoryIntent, BuildConfig.API_KEY);
+                if(categoryIntent.equals("trending us")) {
+                    fetch("us", "general", BuildConfig.API_KEY);
+                } else if (categoryIntent.equals("trending id")) {
+                    fetch("id", "general", BuildConfig.API_KEY);
+                } else {
+                    fetch(country, categoryIntent, BuildConfig.API_KEY);
+                }
             }
         });
     }
