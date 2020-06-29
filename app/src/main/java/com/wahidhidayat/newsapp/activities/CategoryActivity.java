@@ -93,7 +93,7 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        if(categoryIntent.equals("trending us")) {
+        if (categoryIntent.equals("trending us")) {
             fetch("us", "general", BuildConfig.API_KEY);
         } else if (categoryIntent.equals("trending id")) {
             fetch("id", "general", BuildConfig.API_KEY);
@@ -105,7 +105,7 @@ public class CategoryActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(categoryIntent.equals("trending us")) {
+                if (categoryIntent.equals("trending us")) {
                     fetch("us", "general", BuildConfig.API_KEY);
                 } else if (categoryIntent.equals("trending id")) {
                     fetch("id", "general", BuildConfig.API_KEY);

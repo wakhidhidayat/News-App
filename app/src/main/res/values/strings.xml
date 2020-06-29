@@ -16,7 +16,7 @@
     <string name="image_banner">Image Banner</string>
     <string name="image_gradient">Image Gradient</string>
     <string name="source">Source</string>
-    <string name="favorites">Favorites</string>
+    <string name="favorites">Saved News</string>
     <string name="success_add_favorites">Success added to favorites</string>
     <string name="success_remove_favorites">Success removed from favorites</string>
     <string name="all_fields_are_required">All fields are required!</string>

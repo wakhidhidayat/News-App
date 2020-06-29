@@ -56,7 +56,7 @@
             android:clickable="true"
             android:focusable="true"
             android:backgroundTint="@color/white"
-            android:src="@drawable/outline_favorite_border_black_24dp" />
+            android:src="@drawable/outline_bookmark_border_black_24dp" />
         
     </androidx.cardview.widget.CardView>
 

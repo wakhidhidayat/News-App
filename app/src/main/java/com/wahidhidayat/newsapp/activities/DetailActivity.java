@@ -79,9 +79,9 @@ public class DetailActivity extends AppCompatActivity {
         assert id != null;
         Log.i("favId", id);
         if (id.equals("id")) {
-            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
+            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_border_black_24dp));
         } else {
-            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
+            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_black_24dp));
         }
 
         webView.getSettings().setDomStorageEnabled(true);
@@ -136,7 +136,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, R.string.success_add_favorites, Toast.LENGTH_SHORT).show();
-                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_black_24dp));
+                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_black_24dp));
                 }
             }
         });
@@ -148,7 +148,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, R.string.success_remove_favorites, Toast.LENGTH_SHORT).show();
-                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_favorite_border_black_24dp));
+                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_border_black_24dp));
                 }
             }
         });

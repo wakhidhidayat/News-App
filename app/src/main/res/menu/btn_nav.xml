@@ -9,7 +9,7 @@
     <item
         android:id="@+id/favorites_page"
         android:enabled="true"
-        android:icon="@drawable/ic_favorite_24dp"
+        android:icon="@drawable/ic_collections_bookmark_black_24dp"
         android:title="@string/favorites"/>
 
     <item
