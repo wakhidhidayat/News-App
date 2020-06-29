@@ -1,5 +1,7 @@
 package com.wahidhidayat.newsapp.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +54,9 @@ public class DetailActivity extends AppCompatActivity {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userReference = FirebaseDatabase.getInstance().getReference("Users");
-        favReference = userReference.child(firebaseUser.getUid()).child("favorites");
+        if (firebaseUser != null) {
+            favReference = userReference.child(firebaseUser.getUid()).child("favorites");
+        }
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
@@ -105,7 +109,24 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (id.equals("id")) {
-                    addFavorite(favReference.push().getKey(), url, title, source, date, image, description);
+                    if (firebaseUser != null) {
+                        addFavorite(favReference.push().getKey(), url, title, source, date, image, description);
+                    } else {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(DetailActivity.this);
+                        alert.setMessage(R.string.to_save_articles);
+                        alert.setPositiveButton(getString(R.string.sign_in), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(DetailActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        alert.setNegativeButton(R.string.cancel, null);
+
+                        // create and show the alert dialog
+                        AlertDialog dialog = alert.create();
+                        dialog.show();
+                    }
                 } else {
                     favReference.child(id).child("url").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

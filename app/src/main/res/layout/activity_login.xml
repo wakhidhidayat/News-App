@@ -58,13 +58,47 @@
         android:background="@color/blue" />
 
     <TextView
+        android:id="@+id/tv_dont_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_login"
+        android:text="@string/don_t_have_account"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorTextSubtitle"/>
+
+    <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_login"
-        android:text="@string/don_t_have_account_sign_up_here"
+        android:text="@string/sign_up_here"
         android:layout_marginTop="30dp"
+        android:layout_toEndOf="@id/tv_dont_have_account"
+        android:layout_marginStart="8dp"
         android:textSize="16sp"
         android:textColor="@color/blue"/>
+
+    <TextView
+        android:id="@+id/tv_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_register"
+        android:text="@string/or"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorTextSubtitle"/>
+
+    <TextView
+        android:id="@+id/tv_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_register"
+        android:textSize="16sp"
+        android:textColor="@color/blue"
+        android:text="@string/continue_without_login"
+        android:layout_toEndOf="@id/tv_or"
+        android:layout_marginTop="15dp"/>
 
 </RelativeLayout>

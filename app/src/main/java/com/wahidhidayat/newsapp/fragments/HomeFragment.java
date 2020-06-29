@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wahidhidayat.newsapp.BuildConfig;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.activities.LoginActivity;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private NewsAdapter adapter;
     private List<Articles> articles = new ArrayList<>();
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,13 +118,22 @@ public class HomeFragment extends Fragment {
             }
         });
         searchMenuItem.getIcon().setVisible(false, false);
+
+        // change icon sign out item
+        MenuItem menuItem = menu.findItem(R.id.logout);
+        if (firebaseUser == null) {
+            menuItem.setTitle(getString(R.string.sign_in));
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
+                if (firebaseUser != null) {
+                    FirebaseAuth.getInstance().signOut();
+                    return true;
+                }
                 startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
 

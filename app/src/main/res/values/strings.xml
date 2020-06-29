@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">News App</string>
-    <string name="news">News</string>
     <string name="search">Search</string>
     <string name="create_account">Create Account</string>
     <string name="name">Name</string>
@@ -8,31 +7,27 @@
     <string name="sign_in">Sign In</string>
     <string name="logout">Sign Out</string>
     <string name="password">Password</string>
-    <string name="don_t_have_account_sign_up_here">Don\'t have account? Sign Up here</string>
-    <string name="already_have_account_sign_in_here">Already have account? Sign In here</string>
     <string name="language">Change region</string>
     <string name="title">TITLE</string>
     <string name="date">Date</string>
     <string name="image_banner">Image Banner</string>
     <string name="image_gradient">Image Gradient</string>
     <string name="source">Source</string>
-    <string name="favorites">Saved News</string>
-    <string name="success_add_favorites">Success added to favorites</string>
-    <string name="success_remove_favorites">Success removed from favorites</string>
+    <string name="favorites">Saved Articles</string>
+    <string name="success_add_favorites">Article added to your saved list</string>
+    <string name="success_remove_favorites">Article removed from your saved list</string>
     <string name="all_fields_are_required">All fields are required!</string>
     <string name="authentication_failed">Authentication failed</string>
     <string name="password_at_least_8">Password must be at least 8 characters!</string>
     <string name="email_already_taken">Email already taken!</string>
-    <string name="news_detail">News Detail</string>
+    <string name="news_detail">Article</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
-    <string name="search_latest_news">Search News...</string>
+    <string name="search_latest_news">Search Headline...</string>
     <string name="categories">Categories</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="business">Business</string>
     <string name="entertainment">Entertainment</string>
-    <string name="general">General</string>
     <string name="health">Health</string>
     <string name="science">Science</string>
     <string name="sports">Sports</string>
@@ -40,4 +35,13 @@
     <string name="trending">Trending</string>
     <string name="trending_us">Trending in U.S.</string>
     <string name="trending_id">Trending in Indonesia</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="sign_in_here">Sign In here</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="sign_up_here">Sign Up here</string>
+    <string name="or">or</string>
+    <string name="continue_without_login">Continue without account</string>
+    <string name="to_save_articles">To save articles, please sign in or register your account first.</string>
+    <string name="cancel">Cancel</string>
+    <string name="you_must_be_logged_in">You must be logged in to your account to access your saved articles</string>
 </resources>

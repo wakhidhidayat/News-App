@@ -86,39 +86,53 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
+        if (firebaseUser != null) {
+            favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
+        }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String id = "id";
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Favorite favorite = snapshot.getValue(Favorite.class);
-                            assert favorite != null;
-                            if (favorite.getUrl().equals(article.getUrl())) {
-                                id = favorite.getId();
+                if (firebaseUser != null) {
+                    favReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String id = "id";
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Favorite favorite = snapshot.getValue(Favorite.class);
+                                assert favorite != null;
+                                if (favorite.getUrl().equals(article.getUrl())) {
+                                    id = favorite.getId();
+                                }
                             }
+
+                            Intent intent = new Intent(context, DetailActivity.class);
+                            intent.putExtra("title", article.getTitle());
+                            intent.putExtra("image", article.getUrlToImage());
+                            intent.putExtra("date", article.getPublishedAt());
+                            intent.putExtra("source", article.getSource().getName());
+                            intent.putExtra("url", article.getUrl());
+                            intent.putExtra("description", article.getDescription());
+                            intent.putExtra("id", id);
+                            context.startActivity(intent);
                         }
 
-                        Intent intent = new Intent(context, DetailActivity.class);
-                        intent.putExtra("title", article.getTitle());
-                        intent.putExtra("image", article.getUrlToImage());
-                        intent.putExtra("date", article.getPublishedAt());
-                        intent.putExtra("source", article.getSource().getName());
-                        intent.putExtra("url", article.getUrl());
-                        intent.putExtra("description", article.getDescription());
-                        intent.putExtra("id", id);
-                        context.startActivity(intent);
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+                } else {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("title", article.getTitle());
+                    intent.putExtra("image", article.getUrlToImage());
+                    intent.putExtra("date", article.getPublishedAt());
+                    intent.putExtra("source", article.getSource().getName());
+                    intent.putExtra("url", article.getUrl());
+                    intent.putExtra("description", article.getDescription());
+                    intent.putExtra("id", "id");
+                    context.startActivity(intent);
+                }
             }
         });
     }

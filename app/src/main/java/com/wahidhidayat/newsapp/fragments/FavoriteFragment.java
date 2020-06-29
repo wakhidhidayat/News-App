@@ -1,7 +1,9 @@
 package com.wahidhidayat.newsapp.fragments;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -50,7 +52,7 @@ public class FavoriteFragment extends Fragment {
     private List<Favorite> favoriteList;
 
     private DatabaseReference favReference;
-    private FirebaseUser firebaseUser;
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,32 +64,49 @@ public class FavoriteFragment extends Fragment {
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle("");
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
-        Log.i("tag", favReference.toString());
+        if (firebaseUser != null) {
+            favReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).child("favorites");
+        }
 
         favoriteList = new ArrayList<>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        favReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                favoriteList.clear();
+        if (firebaseUser != null) {
+            favReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    favoriteList.clear();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Favorite favorite = snapshot.getValue(Favorite.class);
-                    favoriteList.add(favorite);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Favorite favorite = snapshot.getValue(Favorite.class);
+                        favoriteList.add(favorite);
+                    }
+                    adapter = new FavoriteAdapter(getActivity(), favoriteList);
+                    recyclerView.setAdapter(adapter);
                 }
-                adapter = new FavoriteAdapter(getActivity(), favoriteList);
-                recyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("error retrieve", databaseError.getDetails());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.i("error retrieve", databaseError.getDetails());
+                }
+            });
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setMessage(R.string.you_must_be_logged_in);
+            alert.setPositiveButton(getString(R.string.sign_in), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            alert.setNegativeButton(R.string.cancel, null);
+
+            // create and show the alert dialog
+            AlertDialog dialog = alert.create();
+            dialog.show();
+        }
 
         return view;
     }
@@ -115,26 +134,41 @@ public class FavoriteFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (query.length() > 2) {
-                    searchNews(query);
+                if (firebaseUser != null) {
+                    if (query.length() > 2) {
+                        searchNews(query);
+                    }
+                    return true;
                 }
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchNews(newText);
-                return true;
+                if (firebaseUser != null) {
+                    searchNews(newText);
+                    return true;
+                }
+                return false;
             }
         });
         searchMenuItem.getIcon().setVisible(false, false);
+
+        // change icon sign out item
+        MenuItem menuItem = menu.findItem(R.id.logout);
+        if (firebaseUser == null) {
+            menuItem.setTitle(getString(R.string.sign_in));
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
+                if (firebaseUser != null) {
+                    FirebaseAuth.getInstance().signOut();
+                    return true;
+                }
                 startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
 

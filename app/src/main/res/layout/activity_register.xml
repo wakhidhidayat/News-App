@@ -69,12 +69,24 @@
         android:background="@color/blue" />
 
     <TextView
+        android:id="@+id/tv_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_register"
+        android:text="@string/already_have_account"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorTextSubtitle"/>
+
+    <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_register"
-        android:text="@string/already_have_account_sign_in_here"
+        android:layout_toEndOf="@id/tv_have_account"
+        android:text="@string/sign_in_here"
         android:layout_marginTop="30dp"
+        android:layout_marginStart="8dp"
         android:textSize="16sp"
         android:textColor="@color/blue"/>
 
