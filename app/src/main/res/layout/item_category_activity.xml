@@ -21,7 +21,7 @@
                 android:id="@+id/iv_banner_category"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:contentDescription="@string/image_banner" />
 
             <ImageView

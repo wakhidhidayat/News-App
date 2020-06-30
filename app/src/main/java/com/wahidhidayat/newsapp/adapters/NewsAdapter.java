@@ -64,7 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         final Articles article = articles.get(position);
         holder.tvTitle.setText(article.getTitle());
         holder.tvSource.setText(article.getSource().getName());
-        holder.tvDate.setText("\u2022" + dateTime(article.getPublishedAt()));
+        holder.tvDate.setText("\u2022" + dateTime(article.getPublishedAt())); // u2022 is unicode to create bullet symbol
         holder.tvDesc.setText(article.getDescription());
         String imageUrl = article.getUrlToImage();
         holder.progressBar.setVisibility(View.VISIBLE);
@@ -73,6 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        holder.progressBar.setVisibility(View.GONE);
                         return false;
                     }
 

@@ -53,4 +53,9 @@
     <string name="about_us_desc">NewsApp provides lots of articles every day to deliver the top trending news stories influencing the world right now. NewsApp also delivers high-quality news headlines and breaking news from top news publishers.</string>
     <string name="success_sign_out">Success Sign Out</string>
     <string name="success_sign_in">Success Sing In</string>
+    <string name="share">Share</string>
+    <string name="open_with_browser">Open in Browser</string>
+    <string name="save_article">Save Article</string>
+    <string name="error_share">Error occurred when sharing the article</string>
+    <string name="share_with">\"Share with : \"</string>
 </resources>

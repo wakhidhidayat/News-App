@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface APIInterface {
+    // endpoint to get headlines
     @GET("top-headlines")
     Call<Headlines> getHeadlines(
             @Query("country") String country,
@@ -15,6 +16,7 @@ public interface APIInterface {
             @Query("category") String category
     );
 
+    // endpoint to get search
     @GET("everything")
     Call<Headlines> getNews(@Query("q") String query, @Query("apiKey") String apiKey, @Query("pageSize") int pages);
 }

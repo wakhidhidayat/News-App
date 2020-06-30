@@ -8,26 +8,32 @@
     tools:context=".activities.CategoryActivity"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_category"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        app:titleTextColor="@color/colorTextTitle"
-        android:theme="@style/ToolbarTheme"
-        app:subtitleTextColor="@color/colorTextTitle">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_toolbar_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:textStyle="bold"
-            android:textSize="23sp"
-            android:textColor="@color/colorTextSubtitle"
-            android:layout_gravity="center_vertical" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_category"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            app:titleTextColor="@color/colorTextTitle"
+            android:theme="@style/ToolbarTheme"
+            app:subtitleTextColor="@color/colorTextTitle">
 
-    </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/tv_toolbar_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="bold"
+                android:textSize="23sp"
+                android:textColor="@color/colorTextSubtitle"
+                android:layout_gravity="center_vertical" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_category"

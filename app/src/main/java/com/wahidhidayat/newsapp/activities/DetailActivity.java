@@ -3,8 +3,11 @@ package com.wahidhidayat.newsapp.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -34,11 +37,18 @@ public class DetailActivity extends AppCompatActivity {
 
     WebView webView;
     Toolbar toolbar;
-    FloatingActionButton btnFav;
 
     FirebaseUser firebaseUser;
     DatabaseReference userReference;
     DatabaseReference favReference;
+
+    private String EXTRA_ID = "id";
+    private String EXTRA_TITLE = "title";
+    private String EXTRA_IMAGE = "image";
+    private String EXTRA_SOURCE = "source";
+    private String EXTRA_DATE = "date";
+    private String EXTRA_URL = "url";
+    private String EXTRA_DESCRIPTION = "desc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +57,6 @@ public class DetailActivity extends AppCompatActivity {
 
         webView = findViewById(R.id.web_view);
         toolbar = findViewById(R.id.toolbar);
-        btnFav = findViewById(R.id.btn_fav);
-
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        userReference = FirebaseDatabase.getInstance().getReference("Users");
-        if (firebaseUser != null) {
-            favReference = userReference.child(firebaseUser.getUid()).child("favorites");
-        }
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
@@ -66,35 +69,69 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-
-        final String id = intent.getStringExtra("id");
-        final String title = intent.getStringExtra("title");
-        final String image = intent.getStringExtra("image");
-        final String source = intent.getStringExtra("source");
-        final String date = intent.getStringExtra("date");
-        final String url = intent.getStringExtra("url");
-        final String description = intent.getStringExtra("description");
-
-        assert id != null;
-        Log.i("favId", id);
-        if (id.equals("id")) {
-            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_border_black_24dp));
-        } else {
-            btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_black_24dp));
-        }
+        EXTRA_ID = intent.getStringExtra("id");
+        EXTRA_TITLE = intent.getStringExtra("title");
+        EXTRA_IMAGE = intent.getStringExtra("image");
+        EXTRA_SOURCE = intent.getStringExtra("source");
+        EXTRA_DATE = intent.getStringExtra("date");
+        EXTRA_URL = intent.getStringExtra("url");
+        EXTRA_DESCRIPTION = intent.getStringExtra("description");
 
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(url);
+        webView.loadUrl(EXTRA_URL);
+    }
 
-        btnFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (id.equals("id")) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.article_menu, menu);
+        MenuItem btnSave = menu.findItem(R.id.save);
+
+        // check if article has already in favorites or not
+        assert EXTRA_ID != null;
+        if (EXTRA_ID.equals("id")) {
+            btnSave.setIcon(R.drawable.ic_bookmark_border_black_24dp);
+        } else {
+            btnSave.setIcon(R.drawable.ic_bookmark_black_24dp);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.share:
+                try {
+                    Intent intentShare = new Intent(Intent.ACTION_SEND);
+                    intentShare.setType("text/plan");
+                    intentShare.putExtra(Intent.EXTRA_SUBJECT, EXTRA_TITLE);
+                    intentShare.putExtra(Intent.EXTRA_TEXT, EXTRA_TITLE + "\nSee more this article in " + EXTRA_URL + "\n\nShared from NewsApp");
+                    startActivity(Intent.createChooser(intentShare, getString(R.string.share_with)));
+                } catch (Exception e) {
+                    Toast.makeText(this, R.string.error_share, Toast.LENGTH_SHORT).show();
+                }
+                return true;
+
+            case R.id.open_browser:
+                Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
+                intentBrowser.setData(Uri.parse(EXTRA_URL));
+                startActivity(intentBrowser);
+                return true;
+
+            case R.id.save:
+                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                userReference = FirebaseDatabase.getInstance().getReference("Users");
+
+                if (firebaseUser != null) {
+                    favReference = userReference.child(firebaseUser.getUid()).child("favorites");
+                }
+
+                assert EXTRA_ID != null;
+                if (EXTRA_ID.equals("id")) {
                     if (firebaseUser != null) {
-                        addFavorite(favReference.push().getKey(), url, title, source, date, image, description);
+                        addFavorite(favReference.push().getKey(), EXTRA_URL, EXTRA_TITLE, EXTRA_SOURCE, EXTRA_DATE, EXTRA_IMAGE, EXTRA_DESCRIPTION);
                     } else {
                         AlertDialog.Builder alert = new AlertDialog.Builder(DetailActivity.this);
                         alert.setMessage(R.string.to_save_articles);
@@ -112,13 +149,13 @@ public class DetailActivity extends AppCompatActivity {
                         dialog.show();
                     }
                 } else {
-                    favReference.child(id).child("url").addListenerForSingleValueEvent(new ValueEventListener() {
+                    favReference.child(EXTRA_ID).child("url").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String urlDb = dataSnapshot.getValue(String.class);
                             assert urlDb != null;
-                            if (urlDb.equals(url)) {
-                                removeFavorite(id);
+                            if (urlDb.equals(EXTRA_URL)) {
+                                removeFavorite(EXTRA_ID);
                             }
                         }
 
@@ -128,8 +165,9 @@ public class DetailActivity extends AppCompatActivity {
                         }
                     });
                 }
-            }
-        });
+                return true;
+        }
+        return false;
     }
 
     private void addFavorite(String id, String url, String title, String source, String date, String image, String description) {
@@ -141,7 +179,6 @@ public class DetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, R.string.success_add_favorites, Toast.LENGTH_SHORT).show();
-                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_black_24dp));
                 }
             }
         });
@@ -153,7 +190,6 @@ public class DetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, R.string.success_remove_favorites, Toast.LENGTH_SHORT).show();
-                    btnFav.setImageDrawable(ContextCompat.getDrawable(DetailActivity.this, R.drawable.outline_bookmark_border_black_24dp));
                 }
             }
         });
