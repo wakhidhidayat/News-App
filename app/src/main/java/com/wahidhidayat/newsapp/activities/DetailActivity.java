@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +39,6 @@ public class DetailActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference userReference;
     DatabaseReference favReference;
-    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,6 @@ public class DetailActivity extends AppCompatActivity {
         webView = findViewById(R.id.web_view);
         toolbar = findViewById(R.id.toolbar);
         btnFav = findViewById(R.id.btn_fav);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_detail);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -67,8 +64,6 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(new Intent(DetailActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-
-        swipeRefreshLayout.setRefreshing(true);
 
         Intent intent = getIntent();
 
@@ -93,17 +88,6 @@ public class DetailActivity extends AppCompatActivity {
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                webView.loadUrl(url);
-            }
-        });
-
-        if (webView.isShown()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
 
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override

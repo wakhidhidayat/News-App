@@ -51,5 +51,6 @@
     <string name="my_github">wakhidhidayat/News-App</string>
     <string name="my_twitter">wakhidhidayat7</string>
     <string name="about_us_desc">NewsApp provides lots of articles every day to deliver the top trending news stories influencing the world right now. NewsApp also delivers high-quality news headlines and breaking news from top news publishers.</string>
-
+    <string name="success_sign_out">Success Sign Out</string>
+    <string name="success_sign_in">Success Sing In</string>
 </resources>
