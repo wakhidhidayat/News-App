@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">News App</string>
+    <string name="app_name">NewsApp</string>
     <string name="search">Search</string>
     <string name="create_account">Create Account</string>
     <string name="name">Name</string>
@@ -44,4 +44,12 @@
     <string name="to_save_articles">To save articles, please sign in or register your account first.</string>
     <string name="cancel">Cancel</string>
     <string name="you_must_be_logged_in">You must be logged in to your account to access your saved articles</string>
+    <string name="about">About</string>
+    <string name="version">Version</string>
+    <string name="connect_with_us">Connect with us</string>
+    <string name="my_email">wshidayat38@gmail.com</string>
+    <string name="my_github">wakhidhidayat/News-App</string>
+    <string name="my_twitter">wakhidhidayat7</string>
+    <string name="about_us_desc">NewsApp provides lots of articles every day to deliver the top trending news stories influencing the world right now. NewsApp also delivers high-quality news headlines and breaking news from top news publishers.</string>
+
 </resources>

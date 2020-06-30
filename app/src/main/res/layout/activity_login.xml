@@ -55,7 +55,7 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@color/blue" />
+        android:background="@drawable/button_corner" />
 
     <TextView
         android:id="@+id/tv_dont_have_account"

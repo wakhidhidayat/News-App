@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">News App</string>
+    <string name="app_name">NewsApp</string>
     <string name="search">Cari</string>
     <string name="create_account">Buat Akun</string>
     <string name="name">Nama</string>
@@ -43,4 +43,12 @@
     <string name="to_save_articles">Untuk menyimpan artikel, anda harus masuk ke akun terlebih dahulu.</string>
     <string name="cancel">Batal</string>
     <string name="you_must_be_logged_in">Anda harus masuk ke akun anda terlebih dahulu untuk melihat artikel yang anda simpan.</string>
+    <string name="about">Tentang Aplikasi</string>
+    <string name="version">Versi</string>
+    <string name="connect_with_us">Ikuti kami</string>
+    <string name="my_email">wshidayat38@gmail.com</string>
+    <string name="my_github">wakhidhidayat/News-App</string>
+    <string name="my_twitter">wakhidhidayat7</string>
+    <string name="about_us_desc">NewsApp menyediakan artikel yang lengkap setiap hari untuk menyampaikan berita tren terkini yang memengaruhi dunia saat ini. NewsApp juga memberikan headline berita berkualitas tinggi dan berita terkini dari penerbit berita terkemuka.</string>
+
 </resources>
