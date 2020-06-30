@@ -33,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wahidhidayat.newsapp.R;
-import com.wahidhidayat.newsapp.activities.AboutActivity;
 import com.wahidhidayat.newsapp.activities.LoginActivity;
 import com.wahidhidayat.newsapp.adapters.FavoriteAdapter;
 import com.wahidhidayat.newsapp.models.Favorite;
@@ -180,11 +179,6 @@ public class FavoriteFragment extends Fragment {
 
             case R.id.search:
                 return false;
-
-            case R.id.about:
-                Intent intentAbout = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intentAbout);
-                return true;
         }
         return false;
     }

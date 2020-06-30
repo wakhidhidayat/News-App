@@ -52,4 +52,9 @@
     <string name="about_us_desc">NewsApp menyediakan artikel yang lengkap setiap hari untuk menyampaikan berita tren terkini yang memengaruhi dunia saat ini. NewsApp juga memberikan headline berita berkualitas tinggi dan berita terkini dari penerbit berita terkemuka.</string>
     <string name="success_sign_out">Berhasil Keluar dari Akun</string>
     <string name="success_sign_in">Berhasil Masuk ke Akun</string>
+    <string name="share">Bagikan</string>
+    <string name="open_with_browser">Buka melalui browser</string>
+    <string name="save_article">Simpan artikel</string>
+    <string name="error_share">Terjadi kesalahan saat mencoba membagikan artikel</string>
+    <string name="share_with">Bagikan dengan : </string>
 </resources>

@@ -27,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wahidhidayat.newsapp.BuildConfig;
 import com.wahidhidayat.newsapp.R;
-import com.wahidhidayat.newsapp.activities.AboutActivity;
 import com.wahidhidayat.newsapp.activities.LoginActivity;
 import com.wahidhidayat.newsapp.activities.MainActivity;
 import com.wahidhidayat.newsapp.adapters.NewsAdapter;
@@ -148,11 +147,6 @@ public class HomeFragment extends Fragment {
 
             case R.id.search:
                 return false;
-
-            case R.id.about:
-                Intent intentAbout = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intentAbout);
-                return true;
         }
         return false;
     }
