@@ -22,7 +22,7 @@
                 android:background="@color/white"
                 app:titleTextColor="@color/black"
                 android:gravity="center"
-                app:subtitleTextColor="@color/black" >
+                app:subtitleTextColor="@color/black">
 
                 <TextView
                     android:id="@+id/tv_app_name"
@@ -39,11 +39,11 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_fav"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fav"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@ public class APIClient {
     private static APIClient apiClient;
     private static Retrofit retrofit = null;
 
+    // mapping JSON data to Java Object
     private APIClient() {
         retrofit = new Retrofit
                 .Builder()

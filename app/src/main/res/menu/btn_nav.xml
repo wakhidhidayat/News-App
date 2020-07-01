@@ -4,13 +4,13 @@
         android:id="@+id/home_page"
         android:enabled="true"
         android:icon="@drawable/ic_trending_up_black_24dp"
-        android:title="@string/trending"/>
+        android:title="@string/trending" />
 
     <item
         android:id="@+id/favorites_page"
         android:enabled="true"
         android:icon="@drawable/ic_collections_bookmark_black_24dp"
-        android:title="@string/favorites"/>
+        android:title="@string/favorites" />
 
     <item
         android:id="@+id/categories_page"

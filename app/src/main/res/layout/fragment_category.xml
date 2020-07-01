@@ -22,7 +22,7 @@
                 android:background="@color/white"
                 app:titleTextColor="@color/black"
                 android:gravity="center"
-                app:subtitleTextColor="@color/black" >
+                app:subtitleTextColor="@color/black">
 
                 <TextView
                     android:id="@+id/tv_app_name"

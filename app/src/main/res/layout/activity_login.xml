@@ -31,7 +31,7 @@
         android:textSize="20sp"
         android:textColor="@color/black"
         app:met_floatingLabel="normal"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/et_password"
@@ -43,7 +43,7 @@
         android:textSize="20sp"
         android:textColor="@color/black"
         app:met_floatingLabel="normal"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btn_login"
@@ -65,7 +65,7 @@
         android:text="@string/don_t_have_account"
         android:layout_marginTop="30dp"
         android:textSize="16sp"
-        android:textColor="@color/colorTextSubtitle"/>
+        android:textColor="@color/colorTextSubtitle" />
 
     <TextView
         android:id="@+id/tv_register"
@@ -77,7 +77,7 @@
         android:layout_toEndOf="@id/tv_dont_have_account"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        android:textColor="@color/blue"/>
+        android:textColor="@color/blue" />
 
     <TextView
         android:id="@+id/tv_or"
@@ -88,7 +88,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
         android:textSize="16sp"
-        android:textColor="@color/colorTextSubtitle"/>
+        android:textColor="@color/colorTextSubtitle" />
 
     <TextView
         android:id="@+id/tv_continue"
@@ -99,6 +99,6 @@
         android:textColor="@color/blue"
         android:text="@string/continue_without_login"
         android:layout_toEndOf="@id/tv_or"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp" />
 
 </RelativeLayout>

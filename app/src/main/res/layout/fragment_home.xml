@@ -22,7 +22,7 @@
                 android:background="@color/white"
                 app:titleTextColor="@color/black"
                 android:gravity="center"
-                app:subtitleTextColor="@color/black" >
+                app:subtitleTextColor="@color/black">
 
                 <TextView
                     android:id="@+id/tv_app_name"
@@ -39,19 +39,29 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/home_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_main"
-                android:layout_marginTop="5dp"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_main"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/layout_error" />
 
 </FrameLayout>

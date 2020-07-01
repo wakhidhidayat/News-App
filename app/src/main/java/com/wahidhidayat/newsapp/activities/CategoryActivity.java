@@ -3,6 +3,9 @@ package com.wahidhidayat.newsapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,11 +40,26 @@ public class CategoryActivity extends AppCompatActivity {
     private CategoryAdapter adapter;
     private List<Articles> articles = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
+    private String categoryIntent;
+
+    private LinearLayout categoryLayout;
+    private LinearLayout errorLayout;
+    private ImageView ivError;
+    private TextView tvErrorTitle;
+    private TextView tvErrorMessage;
+    private Button btnRetry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        categoryLayout = findViewById(R.id.category_layout);
+        errorLayout = findViewById(R.id.layout_error);
+        ivError = findViewById(R.id.iv_error);
+        tvErrorTitle = findViewById(R.id.tv_error_title);
+        tvErrorMessage = findViewById(R.id.tv_error_message);
+        btnRetry = findViewById(R.id.btn_retry);
 
         recyclerView = findViewById(R.id.rv_category_activity);
         toolbar = findViewById(R.id.toolbar_category);
@@ -51,7 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         Intent intent = getIntent();
-        final String categoryIntent = intent.getStringExtra("category");
+        categoryIntent = intent.getStringExtra("category");
         final String country = getCountry();
 
         setSupportActionBar(toolbar);
@@ -117,6 +135,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void fetch(String country, String category, String apiKey) {
+        errorLayout.setVisibility(View.INVISIBLE);
         swipeRefreshLayout.setRefreshing(true);
         Call<Headlines> call;
 
@@ -132,13 +151,47 @@ public class CategoryActivity extends AppCompatActivity {
                     articles = response.body().getArticles();
                     adapter = new CategoryAdapter(CategoryActivity.this, articles);
                     recyclerView.setAdapter(adapter);
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    showError(R.drawable.no_result, "No Result", "Please Try Again\n" + response.code());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Headlines> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
+                showError(R.drawable.no_result, "Oops", "Network Failure, Please Try Again\n" + t.getLocalizedMessage());
+
                 Toast.makeText(CategoryActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showError(int imageView, String title, String message) {
+        if (errorLayout.getVisibility() == View.INVISIBLE) {
+            errorLayout.setVisibility(View.VISIBLE);
+            categoryLayout.setVisibility(View.GONE);
+        }
+        ivError.setImageResource(imageView);
+        tvErrorTitle.setText(title);
+        tvErrorMessage.setText(message);
+
+        btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (categoryIntent.equals("trending us")) {
+                            fetch("us", "general", BuildConfig.API_KEY);
+                        } else if (categoryIntent.equals("trending id")) {
+                            fetch("id", "general", BuildConfig.API_KEY);
+                        } else {
+                            fetch(getCountry(), categoryIntent, BuildConfig.API_KEY);
+                        }
+                        categoryLayout.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
     }

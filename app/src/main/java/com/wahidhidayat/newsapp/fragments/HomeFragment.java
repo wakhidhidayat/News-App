@@ -11,7 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +59,13 @@ public class HomeFragment extends Fragment {
     private List<Articles> articles = new ArrayList<>();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+    private LinearLayout homeLayout;
+    private LinearLayout errorLayout;
+    private ImageView ivError;
+    private TextView tvErrorTitle;
+    private TextView tvErrorMessage;
+    private Button btnRetry;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +74,13 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         recyclerView = view.findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        homeLayout = view.findViewById(R.id.home_layout);
+        errorLayout = view.findViewById(R.id.layout_error);
+        ivError = view.findViewById(R.id.iv_error);
+        tvErrorTitle = view.findViewById(R.id.tv_error_title);
+        tvErrorMessage = view.findViewById(R.id.tv_error_message);
+        btnRetry = view.findViewById(R.id.btn_retry);
 
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
@@ -153,6 +171,7 @@ public class HomeFragment extends Fragment {
 
 
     private void fetch(String query, String country, String apiKey) {
+        errorLayout.setVisibility(View.INVISIBLE);
         swipeRefreshLayout.setRefreshing(true);
         Call<Headlines> call;
 
@@ -172,13 +191,41 @@ public class HomeFragment extends Fragment {
                     articles = response.body().getArticles();
                     adapter = new NewsAdapter(getActivity(), articles);
                     recyclerView.setAdapter(adapter);
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    showError(R.drawable.no_result, "No Result", "Please Try Again\n" + response.code());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Headlines> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
+                showError(R.drawable.no_result, "Oops", "Network Failure, Please Try Again\n" + t.getLocalizedMessage());
+
                 Toast.makeText(getActivity(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showError(int imageView, String title, String message) {
+        if (errorLayout.getVisibility() == View.INVISIBLE) {
+            errorLayout.setVisibility(View.VISIBLE);
+            homeLayout.setVisibility(View.GONE);
+        }
+        ivError.setImageResource(imageView);
+        tvErrorTitle.setText(title);
+        tvErrorMessage.setText(message);
+
+        btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        fetch("", getCountry(), BuildConfig.API_KEY);
+                        homeLayout.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
     }

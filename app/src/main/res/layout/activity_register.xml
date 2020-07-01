@@ -9,7 +9,7 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:padding="16dp">
-    
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:hint="@string/name"
         android:textSize="20sp"
         android:textColor="@color/black"
-        app:met_floatingLabel="normal"/>
+        app:met_floatingLabel="normal" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/et_email"
@@ -42,7 +42,7 @@
         android:textSize="20sp"
         android:textColor="@color/black"
         app:met_floatingLabel="normal"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/et_password"
@@ -54,7 +54,7 @@
         android:textSize="20sp"
         android:textColor="@color/black"
         app:met_floatingLabel="normal"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btn_register"
@@ -76,7 +76,7 @@
         android:text="@string/already_have_account"
         android:layout_marginTop="30dp"
         android:textSize="16sp"
-        android:textColor="@color/colorTextSubtitle"/>
+        android:textColor="@color/colorTextSubtitle" />
 
     <TextView
         android:id="@+id/tv_login"
@@ -88,6 +88,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginStart="8dp"
         android:textSize="16sp"
-        android:textColor="@color/blue"/>
+        android:textColor="@color/blue" />
 
 </RelativeLayout>
