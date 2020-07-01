@@ -143,25 +143,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return articles.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvSource, tvDate, tvDesc;
-        ImageView ivBanner;
-        CardView cardView;
-        ProgressBar progressBar;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            tvTitle = itemView.findViewById(R.id.tv_title_category);
-            tvSource = itemView.findViewById(R.id.tv_source_category);
-            tvDate = itemView.findViewById(R.id.tv_date_category);
-            ivBanner = itemView.findViewById(R.id.iv_banner_category);
-            cardView = itemView.findViewById(R.id.card_view_category);
-            tvDesc = itemView.findViewById(R.id.tv_desc_category);
-            progressBar = itemView.findViewById(R.id.pb_category);
-        }
-    }
-
     public String getCountry() {
         Locale locale = Locale.getDefault();
         String country = locale.getCountry();
@@ -179,5 +160,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             e.printStackTrace();
         }
         return time;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle, tvSource, tvDate, tvDesc;
+        ImageView ivBanner;
+        CardView cardView;
+        ProgressBar progressBar;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tvTitle = itemView.findViewById(R.id.tv_title_category);
+            tvSource = itemView.findViewById(R.id.tv_source_category);
+            tvDate = itemView.findViewById(R.id.tv_date_category);
+            ivBanner = itemView.findViewById(R.id.iv_banner_category);
+            cardView = itemView.findViewById(R.id.card_view_category);
+            tvDesc = itemView.findViewById(R.id.tv_desc_category);
+            progressBar = itemView.findViewById(R.id.pb_category);
+        }
     }
 }

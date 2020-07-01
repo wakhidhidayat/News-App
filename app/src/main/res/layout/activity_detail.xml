@@ -16,23 +16,29 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/white"
-            app:titleTextColor="@color/colorTextTitle"
             android:theme="@style/ToolbarTheme"
-            app:subtitleTextColor="@color/colorTextTitle">
+            app:subtitleTextColor="@color/colorTextTitle"
+            app:titleTextColor="@color/colorTextTitle">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:fontFamily="sans-serif-light"
-                android:textStyle="bold"
                 android:text="@string/news_detail"
-                android:textSize="23sp"
                 android:textColor="@color/colorTextSubtitle"
-                android:layout_gravity="center_vertical" />
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_webview"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

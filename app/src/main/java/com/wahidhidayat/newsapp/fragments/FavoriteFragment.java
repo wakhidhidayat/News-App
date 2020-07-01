@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,7 @@ public class FavoriteFragment extends Fragment {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private FavoriteAdapter adapter;
     private List<Favorite> favoriteList;
 
@@ -59,6 +61,8 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         recyclerView = view.findViewById(R.id.rv_fav);
+        progressBar = view.findViewById(R.id.pb_item_fav);
+        progressBar.setVisibility(View.VISIBLE);
 
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
@@ -84,6 +88,7 @@ public class FavoriteFragment extends Fragment {
                     }
                     adapter = new FavoriteAdapter(getActivity(), favoriteList);
                     recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -92,6 +97,7 @@ public class FavoriteFragment extends Fragment {
                 }
             });
         } else {
+            progressBar.setVisibility(View.GONE);
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setMessage(R.string.you_must_be_logged_in);
             alert.setPositiveButton(getString(R.string.sign_in), new DialogInterface.OnClickListener() {

@@ -95,24 +95,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         return favorites.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvSource, tvDate, tvDescription;
-        ImageView ivBanner;
-        CardView cardView;
-        ProgressBar progressBar;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitle = itemView.findViewById(R.id.tv_title_fav);
-            tvSource = itemView.findViewById(R.id.tv_source_fav);
-            tvDate = itemView.findViewById(R.id.tv_date_fav);
-            ivBanner = itemView.findViewById(R.id.iv_banner_fav);
-            cardView = itemView.findViewById(R.id.card_view_fav);
-            tvDescription = itemView.findViewById(R.id.tv_desc_fav);
-            progressBar = itemView.findViewById(R.id.pb_fav);
-        }
-    }
-
     public String getCountry() {
         Locale locale = Locale.getDefault();
         String country = locale.getCountry();
@@ -130,5 +112,23 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             e.printStackTrace();
         }
         return time;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle, tvSource, tvDate, tvDescription;
+        ImageView ivBanner;
+        CardView cardView;
+        ProgressBar progressBar;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tv_title_fav);
+            tvSource = itemView.findViewById(R.id.tv_source_fav);
+            tvDate = itemView.findViewById(R.id.tv_date_fav);
+            ivBanner = itemView.findViewById(R.id.iv_banner_fav);
+            cardView = itemView.findViewById(R.id.card_view_fav);
+            tvDescription = itemView.findViewById(R.id.tv_desc_fav);
+            progressBar = itemView.findViewById(R.id.pb_fav);
+        }
     }
 }

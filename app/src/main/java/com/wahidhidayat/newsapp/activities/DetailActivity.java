@@ -3,6 +3,7 @@ package com.wahidhidayat.newsapp.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ public class DetailActivity extends AppCompatActivity {
 
     WebView webView;
     Toolbar toolbar;
+    ProgressBar progressBar;
 
     FirebaseUser firebaseUser;
     DatabaseReference userReference;
@@ -54,6 +57,8 @@ public class DetailActivity extends AppCompatActivity {
 
         webView = findViewById(R.id.web_view);
         toolbar = findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.pb_webview);
+        progressBar.setVisibility(View.VISIBLE);
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
@@ -77,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewArticle());
         webView.loadUrl(EXTRA_URL);
     }
 
@@ -190,5 +195,24 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public class WebViewArticle extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

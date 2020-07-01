@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CategoryActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.CategoryActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -16,19 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/white"
-            app:titleTextColor="@color/colorTextTitle"
             android:theme="@style/ToolbarTheme"
-            app:subtitleTextColor="@color/colorTextTitle">
+            app:subtitleTextColor="@color/colorTextTitle"
+            app:titleTextColor="@color/colorTextTitle">
 
             <TextView
                 android:id="@+id/tv_toolbar_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:fontFamily="sans-serif-light"
-                android:textStyle="bold"
-                android:textSize="23sp"
                 android:textColor="@color/colorTextSubtitle"
-                android:layout_gravity="center_vertical" />
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -47,9 +47,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_category_activity"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

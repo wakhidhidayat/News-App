@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegisterActivity"
-    android:layout_marginTop="10dp"
     android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
     android:layout_marginRight="20dp"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".activities.RegisterActivity">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_account"
         android:layout_marginTop="10dp"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:text="@string/create_account"
         android:textColor="@color/black"
-        android:gravity="center_horizontal" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/et_name"
@@ -28,8 +28,8 @@
         android:layout_below="@id/tv_title"
         android:layout_marginTop="30dp"
         android:hint="@string/name"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:met_floatingLabel="normal" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -39,10 +39,10 @@
         android:layout_below="@id/et_name"
         android:layout_marginTop="30dp"
         android:hint="@string/email"
-        android:textSize="20sp"
+        android:inputType="textEmailAddress"
         android:textColor="@color/black"
-        app:met_floatingLabel="normal"
-        android:inputType="textEmailAddress" />
+        android:textSize="20sp"
+        app:met_floatingLabel="normal" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/et_password"
@@ -51,10 +51,10 @@
         android:layout_below="@id/et_email"
         android:layout_marginTop="30dp"
         android:hint="@string/password"
-        android:textSize="20sp"
+        android:inputType="textPassword"
         android:textColor="@color/black"
-        app:met_floatingLabel="normal"
-        android:inputType="textPassword" />
+        android:textSize="20sp"
+        app:met_floatingLabel="normal" />
 
     <Button
         android:id="@+id/btn_register"
@@ -62,32 +62,32 @@
         android:layout_height="55dp"
         android:layout_below="@id/et_password"
         android:layout_marginTop="30dp"
+        android:background="@drawable/button_corner"
         android:text="@string/create_account"
         android:textAllCaps="false"
-        android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@drawable/button_corner" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_register"
-        android:text="@string/already_have_account"
         android:layout_marginTop="30dp"
-        android:textSize="16sp"
-        android:textColor="@color/colorTextSubtitle" />
+        android:text="@string/already_have_account"
+        android:textColor="@color/colorTextSubtitle"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_register"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
         android:layout_toEndOf="@id/tv_have_account"
         android:text="@string/sign_in_here"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/blue" />
+        android:textColor="@color/blue"
+        android:textSize="16sp" />
 
 </RelativeLayout>
