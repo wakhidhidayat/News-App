@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +39,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.activities.LoginActivity;
+import com.wahidhidayat.newsapp.activities.MainActivity;
 import com.wahidhidayat.newsapp.adapters.FavoriteAdapter;
 import com.wahidhidayat.newsapp.models.Favorite;
 
@@ -53,6 +58,8 @@ public class FavoriteFragment extends Fragment {
     private FavoriteAdapter adapter;
     private List<Favorite> favoriteList;
 
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInOptions gso;
     private DatabaseReference favReference;
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -63,6 +70,12 @@ public class FavoriteFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv_fav);
         progressBar = view.findViewById(R.id.pb_item_fav);
         progressBar.setVisibility(View.VISIBLE);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
@@ -172,10 +185,16 @@ public class FavoriteFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.logout:
                 if (firebaseUser != null) {
+                    // firebase signout
                     FirebaseAuth.getInstance().signOut();
+
+                    // google signout
+                    mGoogleSignInClient.signOut();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    Toast.makeText(getActivity(), R.string.success_sign_out, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(getActivity(), LoginActivity.class));
                 return true;
 
             case R.id.language:

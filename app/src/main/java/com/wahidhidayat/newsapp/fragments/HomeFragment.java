@@ -27,6 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wahidhidayat.newsapp.BuildConfig;
@@ -59,6 +62,9 @@ public class HomeFragment extends Fragment {
     private List<Articles> articles = new ArrayList<>();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInOptions gso;
+
     private LinearLayout homeLayout;
     private LinearLayout errorLayout;
     private ImageView ivError;
@@ -74,6 +80,12 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         recyclerView = view.findViewById(R.id.rv_main);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         homeLayout = view.findViewById(R.id.home_layout);
         errorLayout = view.findViewById(R.id.layout_error);
@@ -150,12 +162,16 @@ public class HomeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.logout:
                 if (firebaseUser != null) {
+                    // firebase signout
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                    // google signout
+                    mGoogleSignInClient.signOut();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                     Toast.makeText(getActivity(), R.string.success_sign_out, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(getActivity(), LoginActivity.class));
                 return true;
 
             case R.id.language:
