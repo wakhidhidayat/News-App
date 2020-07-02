@@ -35,7 +35,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wahidhidayat.newsapp.BuildConfig;
 import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.activities.LoginActivity;
-import com.wahidhidayat.newsapp.activities.MainActivity;
 import com.wahidhidayat.newsapp.adapters.NewsAdapter;
 import com.wahidhidayat.newsapp.models.Articles;
 import com.wahidhidayat.newsapp.models.Headlines;
@@ -167,7 +166,8 @@ public class HomeFragment extends Fragment {
 
                     // google signout
                     mGoogleSignInClient.signOut();
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    getActivity().finish();
                     Toast.makeText(getActivity(), R.string.success_sign_out, Toast.LENGTH_SHORT).show();
                     return true;
                 }
