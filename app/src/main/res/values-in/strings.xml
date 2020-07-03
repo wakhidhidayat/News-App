@@ -57,4 +57,7 @@
     <string name="save_article">Simpan artikel</string>
     <string name="error_share">Terjadi kesalahan saat mencoba membagikan artikel</string>
     <string name="share_with">Bagikan dengan : </string>
+    <string name="retry">Coba lagi</string>
+    <string name="sign_in_with">Masuk dengan</string>
+    <string name="sign_in_with_google">Masuk dengan Google</string>
 </resources>

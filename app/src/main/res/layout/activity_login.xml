@@ -27,13 +27,32 @@
         android:textColor="@color/colorTextTitle"
         android:textSize="55sp" />
 
-    <com.google.android.gms.common.SignInButton
+    <TextView
+        android:id="@+id/tv_login_with"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/sign_in_with"
+        android:textColor="@color/colorTextTitle"
+        android:textSize="15sp" />
+
+
+    <Button
         android:id="@+id/btn_google"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_below="@id/tv_title_login"
-        android:layout_marginTop="30dp"
-        android:textAlignment="center" />
+        android:layout_height="48dp"
+        android:layout_below="@id/tv_login_with"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/button_corner"
+        android:drawableStart="@drawable/common_google_signin_btn_icon_light_normal"
+        android:text="@string/sign_in_with_google"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_or"

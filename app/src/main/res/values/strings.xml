@@ -59,4 +59,6 @@
     <string name="error_share">Error occurred when sharing the article</string>
     <string name="share_with">Share with : </string>
     <string name="retry">Retry</string>
+    <string name="sign_in_with">Sign In with</string>
+    <string name="sign_in_with_google">Sign In with Google</string>
 </resources>
