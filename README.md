@@ -14,7 +14,7 @@ Download <a href="https://drive.google.com/file/d/1VzvfXOoT2mpAO4C-cdcx9j717MyfB
 
 Screenshots
 
-<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/sign_in.jpg" width="20%"/>    <img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/headlines.jpg" width="20%"/> </br>
-<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/search_headlines.jpg" width="20%"/>   <img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/article.jpg" width="20%"/> </br>
-<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/saved_articles.jpg" width="20%"/>   <img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/category_news.jpg" width="20%"/> </br>
-<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/categories.jpg" width="20%"/>
+<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/sign_in.jpg" width="30%"/>    <img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/headlines.jpg" width="30%"/> </br></br>
+<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/search_headlines.jpg" width="30%"/>   <img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/article.jpg" width="30%"/> </br></br>
+<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/saved_articles.jpg" width="30%"/>   <img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/category_news.jpg" width="30%"/> </br></br>
+<img src="https://github.com/wakhidhidayat/News-App/blob/master/screenshots/categories.jpg" width="30%"/>
