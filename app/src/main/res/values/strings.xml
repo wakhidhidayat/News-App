@@ -61,4 +61,6 @@
     <string name="retry">Retry</string>
     <string name="sign_in_with">Sign In with</string>
     <string name="sign_in_with_google">Sign In with Google</string>
+    <string name="judul_daily">Don\'t forget to see updated news today</string>
+    <string name="desk_daily">Check updated news</string>
 </resources>

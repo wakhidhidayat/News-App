@@ -12,6 +12,7 @@ import com.wahidhidayat.newsapp.R;
 import com.wahidhidayat.newsapp.fragments.CategoryFragment;
 import com.wahidhidayat.newsapp.fragments.FavoriteFragment;
 import com.wahidhidayat.newsapp.fragments.HomeFragment;
+import com.wahidhidayat.newsapp.notifications.DailyReminderReceiver;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNav = findViewById(R.id.bottom_navigation);
         loadFragment(new HomeFragment());
         bottomNav.setOnNavigationItemSelectedListener(this);
+
+        DailyReminderReceiver dailyReminderReceiver = new DailyReminderReceiver();
+        dailyReminderReceiver.dailyReminderOn(this);
     }
 
     @Override
